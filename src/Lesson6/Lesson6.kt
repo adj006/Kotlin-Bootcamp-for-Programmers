@@ -1,5 +1,7 @@
 package Lesson6
 
+import java.util.function.Function
+
 data class Fish (var name: String)
 
 fun main(args: Array<String>) {
@@ -14,9 +16,21 @@ fun fishExamples() {
         capitalize()
     }
     */
+    /*
     myWith (fish.name) {
         println(capitalize())
     }
+    */
+
+    // without inline an object is created every call to myWith
+    myWith(fish.name, object : Function1<String, Unit> {
+        override fun invoke(name: String) {
+            name.capitalize()
+        }
+    })
+
+    // with inline no object is created, and lambda is just inlined here
+    fish.name.capitalize()
 
     println(fish.run { name })
 
